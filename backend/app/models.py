@@ -5,5 +5,5 @@ Base = declarative_base()
 
 class Movie(Base):
     __tablename__ = "movies"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, unique=True)
     title = Column(String)
