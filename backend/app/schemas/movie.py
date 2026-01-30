@@ -1,8 +1,9 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class MovieBase(BaseModel):
     title: str
-    genre: str
+    genres: Optional[str] = None
 
 class MovieOut(MovieBase):
     id: int
