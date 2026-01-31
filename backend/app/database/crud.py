@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from app.models.movie import Movie
 from app.schemas.movie import MovieBase
 
+
 def get_movie_by_title(db: Session, title: str):
     return (
         db.query(Movie)

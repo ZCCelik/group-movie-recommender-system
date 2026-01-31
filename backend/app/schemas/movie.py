@@ -5,8 +5,8 @@ class MovieBase(BaseModel):
     title: str
     genres: Optional[str] = None
 
-class MovieOut(MovieBase):
-    id: int
+class MovieResponse(MovieBase):
+    tmdb_id: int
 
     class Config:
         from_attributes = True
