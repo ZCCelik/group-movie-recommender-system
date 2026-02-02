@@ -4,6 +4,15 @@ import app.services.tmdb_service as tmdb_service
 from sqlalchemy.exc import SQLAlchemyError
 from app.exceptions import DatabaseError
 
+def map_tmdb_movie(m: dict) -> dict:
+    return {
+        "tmdb_id": m["id"],
+        "title": m["title"],
+        "overview": m["overview"],
+        "release_date": m["release_date"],
+    }
+
+
 def search_movies(query: str, db: Session): 
     try:
         movie = crud.get_movie_by_title(db, query)
@@ -27,3 +36,10 @@ def search_movies(query: str, db: Session):
     except SQLAlchemyError:
         db.rollback()
         raise DatabaseError("Failed to save movies")
+
+def get_popular_movies(page: int, language: str):
+    tmdb_movies = tmdb_service.get_popular_movies(page, language)
+    
+    return [map_tmdb_movie(m) for m in tmdb_movies]
+    
+        

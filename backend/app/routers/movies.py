@@ -4,6 +4,8 @@ from app.database.database import get_db
 import app.services.movie_service as movie_service
 import app.schemas.movie as schema
 from app.exceptions import DatabaseError
+from app.exceptions import TMDBError
+
 
 router = APIRouter(prefix="/movies")
 
@@ -24,5 +26,15 @@ def search_movies_by_title(query: str, db: Session = Depends(get_db)):
             detail="Internal database error"
         )
 
-
+@router.get("/popular", response_model=list[schema.MovieResponse])
+def get_popular_movies(page: int = 1, language: str = "en-US", db: Session = Depends(get_db)): 
+    try: 
+        popular_movies = movie_service.get_popular_movies(page, language)
+        return popular_movies
+    
+    except TMDBError:
+        raise HTTPException(
+            status_code=500,
+            detail="TMDB API error"
+        )
 

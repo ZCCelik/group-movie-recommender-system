@@ -1,5 +1,6 @@
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import Column, Integer, String, Float, Text
+
 Base = declarative_base()
 
 class Genre(Base):
