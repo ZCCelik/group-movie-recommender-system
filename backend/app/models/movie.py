@@ -1,16 +1,16 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import Integer, String, Float, Table, ForeignKey, Date
-from app.db.base import Base
+from sqlalchemy import Integer, String, Float, Table, ForeignKey, Date, Column
+from app.database.base import Base
 
 movie_genres = Table(
     "movie_genres",
     Base.metadata,
-    mapped_column(
+    Column(
         "movie_id",
         ForeignKey("movies.id", ondelete="CASCADE"),
         primary_key=True,
     ),
-    mapped_column(
+    Column(
         "genre_id",
         ForeignKey("genres.id", ondelete="CASCADE"),
         primary_key=True,

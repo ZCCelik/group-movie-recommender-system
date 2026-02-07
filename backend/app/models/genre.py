@@ -1,11 +1,10 @@
-from sqlalchemy.orm import declarative_base
-from sqlalchemy import Column, Integer, String, Float, Text
-
-Base = declarative_base()
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import Integer, String, Float, Table, ForeignKey, Date, Column
+from app.database.base import Base
 
 class Genre(Base):
     __tablename__ = "genres"
 
-    id = Column(Integer, primary_key=True)
-    tmdb_id = Column(Integer, unique=True, index=True)
-    name = Column(String, unique=True, nullable=False)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    tmdb_id: Mapped[int] = mapped_column(Integer, unique=True, index=True)
+    name: Mapped[str] = mapped_column(String, unique=True, nullable=False)
