@@ -12,8 +12,6 @@ SessionLocal = sessionmaker(bind=engine)
 
 Base = declarative_base()
 
-Movie.metadata.create_all(bind=engine)
-
 def get_db():
     db = SessionLocal()
     try:
