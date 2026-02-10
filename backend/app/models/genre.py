@@ -8,3 +8,8 @@ class Genre(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     tmdb_id: Mapped[int] = mapped_column(Integer, unique=True, index=True)
     name: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+    
+    movies: Mapped[list["Movie"]] = relationship(
+        secondary="movie_genres",
+        back_populates="genres"
+    )
