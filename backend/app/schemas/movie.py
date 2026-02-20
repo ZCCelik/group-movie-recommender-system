@@ -7,6 +7,8 @@ class MovieBase(BaseModel):
 
 class MovieResponse(MovieBase):
     tmdb_id: int
+    poster_path: Optional[str]
+
 
     class Config:
         from_attributes = True
