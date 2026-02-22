@@ -1,6 +1,8 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import sessionmaker
+from app.database.base import Base
 from app.models.movie import Movie
+from app.models.genre import Genre
 
 DATABASE_URL = "sqlite:///./movies.db"
 
@@ -10,7 +12,7 @@ engine = create_engine(
 
 SessionLocal = sessionmaker(bind=engine)
 
-Base = declarative_base()
+Base.metadata.create_all(bind=engine)
 
 def get_db():
     db = SessionLocal()

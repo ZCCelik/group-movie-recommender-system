@@ -20,11 +20,9 @@ def search_movies_by_title(query: str, db: Session = Depends(get_db)):
     try:
         movies = movie_service.search_movies(query, db)
         return movies
-    except DatabaseError:
-        raise HTTPException(
-            status_code=500,
-            detail="Internal database error"
-        )
+    except Exception as e:
+        print(e)
+        raise
 
 @router.get("/popular", response_model=list[schema.MovieResponse])
 def get_popular_movies(page: int = 1, language: str = "en-US", db: Session = Depends(get_db)): 

@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from app.models.movie import Movie
 from app.schemas.movie import MovieBase
+from datetime import datetime
 
 
 def get_movie_by_title(db: Session, title: str):
@@ -11,11 +12,17 @@ def get_movie_by_title(db: Session, title: str):
     )
 
 def save_movie(db: Session, movie_data: dict):
+    release_date_str = movie_data.get("release_date")
+    
     movie = Movie(
         tmdb_id=movie_data.get("id"),
         title=movie_data.get("title"),
         overview=movie_data.get("overview"),
-        release_date=movie_data.get("release_date"),
+        release_date= (
+                        datetime.strptime(release_date_str, "%Y-%m-%d").date()
+                        if release_date_str
+                        else None
+                        ),
         language=movie_data.get("original_language"),
         popularity=movie_data.get("popularity"),
         vote_average=movie_data.get("vote_average"),

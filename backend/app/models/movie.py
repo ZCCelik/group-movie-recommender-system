@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Integer, String, Float, Table, ForeignKey, Date, Column
 from app.database.base import Base
+from app.models.genre import Genre
 
 movie_genres = Table(
     "movie_genres",
