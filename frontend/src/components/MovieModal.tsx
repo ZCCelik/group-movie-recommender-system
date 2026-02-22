@@ -3,19 +3,22 @@ import "./MovieModal.css"
 
 interface Props {
     movie: Movie
-    onLiked: (movie: Movie) => void
+    onToggle: (movie: Movie) => void
+    isLiked?: boolean
     onClose: () => void
 }
 
-
-export default function MovieModal({movie, onLiked, onClose}: Props) {
+export default function MovieModal({movie, onToggle, isLiked, onClose}: Props) {
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <h2>{movie.title}</h2>
-                <p>{movie.overview}</p> 
-                <button onClick={() => onLiked(movie)}>Like</button>
-                <button onClick={onClose}>Close</button>
+                <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+                <div className="mod">
+                    <h2>{movie.title}</h2>
+                    <p>{movie.overview}</p> 
+                    <button onClick={() => onToggle(movie)}> {isLiked ? "Unlike" : "Like"} </button>
+                    <button onClick={onClose}>Close</button>
+                </div>
             </div>
         </div>
     )

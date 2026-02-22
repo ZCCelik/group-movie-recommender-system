@@ -19,6 +19,7 @@ def search_movies_by_title(query: str, db: Session = Depends(get_db)):
         
     try:
         movies = movie_service.search_movies(query, db)
+        print(movies)
         return movies
     except Exception as e:
         print(e)

@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import type { Movie } from "../types/Movie"
-import { searchMovies } from "../services/api"
+import { fetchPopularMovies, searchMovies } from "../services/api"
 import SearchBar from "../components/SearchBar"
 import MovieCard from "../components/MovieCard"
 import MovieModal from "../components/MovieModal"
@@ -12,12 +12,30 @@ export default function HomePage() {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const [likedMovies, setLikedMovies] = useState<number[]>([])
 
+  useEffect(() => {
+    const loadPopular = async () => {
+      try {
+        setLoading(true)
+        setError(null)
+        const data = await fetchPopularMovies()
+        setMovies(data)
+      } catch {
+        setError("Could not load popular movies")
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadPopular()
+  }, [])
+
+
+
   const handleSearch = async (query: string) => {
     console.log("Search triggered with:", query)
     try {
       setLoading(true)
       setError(null)
-      console.log("Searching for:", query);
+      console.log("Searching for:", query)
       const data = await searchMovies(query)
       setMovies(data)
     } catch (err) {
@@ -49,7 +67,12 @@ export default function HomePage() {
       <MovieModal
         movie={selectedMovie}
         onClose={() => setSelectedMovie(null)}
-        onLiked={() => {setLikedMovies(prev => [...prev, selectedMovie.tmdb_id])}}
+        onToggle={() => {if (likedMovies.includes(selectedMovie.tmdb_id)) {
+          setLikedMovies(likedMovies.filter(id => id !== selectedMovie.tmdb_id))
+        } else {
+          setLikedMovies([...likedMovies, selectedMovie.tmdb_id])
+        } } }
+        isLiked={likedMovies.includes(selectedMovie.tmdb_id)}
       />
     )}
   </div>

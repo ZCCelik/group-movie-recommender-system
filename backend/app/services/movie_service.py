@@ -38,8 +38,7 @@ def search_movies(query: str, db: Session):
         raise DatabaseError("Failed to save movies")
 
 def get_popular_movies(page: int, language: str):
-    tmdb_movies = tmdb_service.get_popular_movies(page, language)
+    return tmdb_service.get_popular_movies(page, language)
     
-    return [map_tmdb_movie(m) for m in tmdb_movies]
     
         

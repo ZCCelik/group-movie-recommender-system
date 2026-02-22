@@ -2,15 +2,22 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  display: flex;
+}
+
+img {
+  width: 180px;
+  height: auto;
 }
 
 .modal-content {
+  display: flex;
   width: min(720px, 1080px);
   background: white;
   border-radius: 12px;
   padding: 16px;
+  gap: 20px;
 }

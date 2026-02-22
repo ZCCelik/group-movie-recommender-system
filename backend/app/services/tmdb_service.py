@@ -63,6 +63,21 @@ def get_popular_movies(page: int, language: str):
     except requests.exceptions.RequestException as e:
         raise TMDBError("TMDB popular movies request failed") from e
     
-    return response.json()["results"]
+    results = response.json()["results"]
+    mapped = []
 
+    for m in results:
+        tmdb_id = m.get("id")
+        if tmdb_id is None:
+            continue
 
+        mapped.append({
+            "tmdb_id": tmdb_id,
+            "title": m.get("title") or "",
+            "overview": m.get("overview"),
+            "release_date": m.get("release_date"),
+            "poster_path": m.get("poster_path"),
+            "genres": None,
+        })
+
+    return mapped
