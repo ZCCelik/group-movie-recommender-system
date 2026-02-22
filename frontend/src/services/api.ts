@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "http://localhost:8000/movies";
 
 export async function searchMovies(query: string) {
   const response = await fetch(`${BASE_URL}/search?query=${query}`);

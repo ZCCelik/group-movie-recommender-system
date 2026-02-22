@@ -8,13 +8,15 @@ interface Props {
 export default function SearchBar({ onSearch }: Props) {
   const [query, setQuery] = useState("")
 
-  const handleSubmit = (e: React.InputEvent) => {
-    e.preventDefault()
-    onSearch(query)
-  }
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    console.log("SUBMIT fired", query);
+    onSearch(query);
+  };
 
   return (
-    <form onSubmit={(e) => handleSubmit}>
+
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Search for a movie..."

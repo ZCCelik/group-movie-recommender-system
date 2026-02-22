@@ -13,6 +13,7 @@ export default function HomePage() {
   const [likedMovies, setLikedMovies] = useState<number[]>([])
 
   const handleSearch = async (query: string) => {
+    console.log("Search triggered with:", query)
     try {
       setLoading(true)
       setError(null)
