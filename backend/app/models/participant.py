@@ -1,11 +1,12 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, Boolean, ForeignKey
-from app.database import Base
+from app.database.base import Base
+import uuid
 
 class Participant(Base):
     __tablename__ = "participants"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     nickname: Mapped[str] = mapped_column(String(50))
     is_ready: Mapped[bool] = mapped_column(Boolean, default=False)
     room_id: Mapped[str] = mapped_column(String(36), ForeignKey("rooms.id"), nullable=False)

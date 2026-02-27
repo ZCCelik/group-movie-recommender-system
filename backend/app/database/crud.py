@@ -5,11 +5,9 @@ from datetime import datetime
 
 
 def get_movie_by_title(db: Session, title: str):
-    return (
-        db.query(Movie)
-        .filter(Movie.title.ilike(f"%{title}%"))
-        .all()
-    )
+    stmt = db.select(Movie).where(Movie.title.ilike(f"%{title}%"))
+    movies = db.scalars(stmt).all()
+    return movies
 
 def save_movie(db: Session, movie_data: dict):
     release_date_str = movie_data.get("release_date")

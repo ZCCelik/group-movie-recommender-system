@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routers import movies
+from app.routers import movies, rooms
 from app.database.database import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -14,6 +14,7 @@ app.add_middleware(
 )
 
 app.include_router(movies.router)
+app.include_router(rooms.router)
 
 Base.metadata.create_all(bind=engine)
 
