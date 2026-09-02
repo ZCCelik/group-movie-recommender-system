@@ -6,6 +6,7 @@ backend/.pytest_cache/
 frontend/node_modules/
 frontend/dist/
 frontend/.env
+ml/data/raw/
 .DS_Store
 .env
 __pycache__/

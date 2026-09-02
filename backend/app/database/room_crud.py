@@ -53,3 +53,4 @@ def lock_room(db: Session, room_id: int):
         db.refresh(room)
 
     return room
+
